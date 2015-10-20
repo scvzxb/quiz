@@ -5,43 +5,38 @@
 #include <time.h>
 
 
-char smallest_character(char cmpInput, char *ch)
+char smallest_character(char cmpInput, char *str)
 {
 	int len;
-	len = strlen(ch);
-	printf("%d\n", len);
+	len = strlen(str);
 	for (int i = 0; i < len; i++) {
-		if (cmpInput < ch[i])return ch[i];
+		if (cmpInput < str[i])return str[i];
 	}
-	return ch[0];
+	return str[0];
+}
+
+double timeCal(clock_t start, clock_t end)
+{
+	double time;
+	time = (double) (end - start) / CLOCKS_PER_SEC;
+	return time;
 }
 
 
-int main()
+int main(int argc, char *argv[])
 {
-	int numLetter = 0;
+	char str[9];
 	char rtnCh;
 	char cmpInput;
-	time_t start, end;
+	clock_t start, end;
 	double timespend;
 
-
-	printf("how many alphabet?\n");
-	scanf("%d", &numLetter);
-	getchar();
-	char ch[20] = {0};
-	for (int i = 0; i < numLetter; i++ ) {
-		scanf("%c", &ch[i]);
-		getchar();
-	}
-	printf("enter a character\n");
-	scanf("%c", &cmpInput);
-	getchar();
-
+	strcpy(str, argv[1]);
+	cmpInput = *argv[2];
 	start = clock();
-	rtnCh = smallest_character(cmpInput, ch);
+	rtnCh = smallest_character(cmpInput, str);
 	end = clock();
-	timespend = (double) (end - start) / CLOCKS_PER_SEC;
+	timespend = timeCal(start, end);
 	printf("ANS : %c\ntime spend : %lf\n", cmpInput, timespend);
 	printf("the smallest characteris %c\n", rtnCh);
 

@@ -3,6 +3,14 @@
 #include <string.h>
 #include <time.h>
 
+double timeCal(clock_t start, clock_t end)
+{
+	double time;
+	time = (double) (end - start) / CLOCKS_PER_SEC;
+	return time;
+}
+
+
 
 char recursive(char cmpInput, char ch[], int count)
 {
@@ -21,25 +29,22 @@ char recursive(char cmpInput, char ch[], int count)
 }
 
 
-int main()
+int main(int argc, char *argv[])
 {
+	char ch[9];
 	double timespent;
 	clock_t start, end;
-	int numLetter = 0;
-	char cmpInput;
-	printf("how many alphabet?\n");
-	scanf(" %d", &numLetter);
-	char *ch = (char*)malloc(numLetter);
-	for (int i = 0; i < numLetter; i++ ) {
-		scanf(" %c", &ch[i]);
-	}
-	scanf(" %c", &cmpInput);
+	char cmpInput, rtnCh;
+	
+	strcpy(ch, argv[1]);
+	cmpInput = *argv[2];
 	start = clock();
-	cmpInput = recursive(cmpInput, ch, numLetter);
+	rtnCh = recursive(cmpInput, ch, 9);
 	end = clock();
-	timespent = ((double) (end - start)) / CLOCKS_PER_SEC;	
+	timespent = timeCal(start, end);
 	printf("ANS : %c\ntime spend : %lf\n", cmpInput,timespent);
-	free(ch);
+	printf("the smallest characteris %c\n", rtnCh);
+
 
 	return 0;
 }
